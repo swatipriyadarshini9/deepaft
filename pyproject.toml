@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "deepaft"
-version = "0.1.1"
+version = "0.1.2"
 description = "Deep accelerated failure time models (Norman et al., 2024): Buckley–James, IPCW, and transform losses with extensions for covariate-dependent censoring, degenerate IPCW, and group residual scale."
 readme = "README.md"
 license = "MIT"
