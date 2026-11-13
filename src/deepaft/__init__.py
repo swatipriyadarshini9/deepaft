@@ -10,7 +10,7 @@ from deepaft.estimator import DeepAFT, DeepAFTConfig
 from deepaft.metrics import amse, harrell_c_index, integrated_brier_score
 from deepaft.simulate import scenario_a, scenario_b, scenario_c, scenario_d, scenario_ph
 
-__version__ = "0.1.2"
+__version__ = "0.1.3"
 __all__ = [
     "DeepAFT",
     "DeepAFTConfig",
