@@ -1,36 +1,20 @@
 # deepaft
 
-Python library for **deep accelerated failure time (AFT)** models with right-censored survival times. Training objectives follow Norman et al. (2024, *Statistics in Medicine*, doi:[10.1002/sim.10152](https://doi.org/10.1002/sim.10152)): Buckley–James imputation, inverse-probability-of-censoring weighting (IPCW), and the Fan–Gijbels transform. Reference implementation in R: `dnn::deepAFT`.
+Python implementation of **deep accelerated failure time (deepAFT)** models for right-censored survival data (Norman et al., 2024, *Statistics in Medicine*, doi:[10.1002/sim.10152](https://doi.org/10.1002/sim.10152); R reference: `dnn::deepAFT`). The library supports Buckley–James, inverse-probability-of-censoring-weighted (IPCW), and Fan–Gijbels transform training objectives, plus **extensions** for covariate-stratified censoring survival, automatic Buckley–James fallback when IPCW weights are degenerate, and group- or input-dependent scaling of log-time residuals.
 
-**Extensions in this codebase** (not in the original paper) address documented failure modes: covariate-stratified censoring survival for IPCW/transform, fallback to Buckley–James when IPCW weights are degenerate, and group- or input-dependent scaling of log-time residuals.
+This repository couples the installable package (`src/deepaft/`) with reproducible **glioma** evaluation code (`experiments/`) and frozen **aggregate** result tables (`results/tables/`). It does **not** redistribute TCGA case-level downloads or BraTS magnetic resonance imaging volumes.
 
-| Component | Location |
-|-----------|----------|
-| Installable API | `src/deepaft/` — `DeepAFT`, Harrell C-index, AMSE, `scenario_a`–`scenario_d` |
-| Glioma evaluation scripts | `experiments/` (TCGA, BraTS 2024 GLI, simulation chapter) |
-| Reported metrics | `results/tables/` (regenerate via `experiments/generate_thesis_results.py`) |
+---
 
-**Attribution.** Cite Norman et al. (2024) for deepAFT. Cite this repository for the Python reimplementation, the extensions above, and the glioma benchmark protocol ([`CITATION.cff`](CITATION.cff)).
+## Package contents
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![Python 3.10+](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org/downloads/)
-
-## Installation
-
-```powershell
-python -m pip install -e ".[dev]"
-python -m pytest -q
-```
-
-Optional cohort tooling (GDC/Xena, BraTS paths, lifelines PH tests):
-
-```powershell
-python -m pip install -e ".[experiments,dev]"
-```
-
-Requires PyTorch ≥ 2.0 for `DeepAFT`. On Windows hosts with application-control policies that block PyTorch on newer Python builds, install CPU torch on **Python 3.12** for imaging-only scripts in `experiments/`; the core package benchmarks in this project were run on the default interpreter where torch imports successfully.
-
-## Usage
+| Component | Description |
+|-----------|-------------|
+| `DeepAFT` | Feed-forward network for the AFT log-time mean; methods `buckley_james`, `ipcw`, `transform` |
+| `limitations` / `censoring` | Covariate censoring, `auto_fallback`, residual `scale` options |
+| `simulate.scenario_a`–`d` | Monte Carlo generators aligned with scenarios A–D (assumption stress tests) |
+| `metrics` | Harrell concordance index, AMSE helpers |
+| `tests/` | Unit tests for censoring, estimation, simulation |
 
 ```python
 from deepaft import DeepAFT, scenario_a, harrell_c_index
@@ -41,19 +25,87 @@ model.fit(X, time, event)
 print(harrell_c_index(model.predict_time(X), time, event))
 ```
 
+### Installation
+
+```powershell
+python -m pip install -e ".[dev]"
+python -m pytest -q
+```
+
+Cohort scripts (GDC, Xena, BraTS path utilities): `python -m pip install -e ".[experiments,dev]"`. PyTorch ≥ 2.0 is required for `DeepAFT`. Imaging-side PyTorch baselines (2D U-Net) were run on **Python 3.12** with CPU wheels where host policy blocked PyTorch on newer interpreters; see `experiments/09_brats_unet2d_baseline.py`.
+
+---
+
 ## Empirical evaluation (glioma)
 
-Peer-reviewed methodology is Norman (2024); empirical claims below are from this repository’s frozen tables when present:
+**Methodological attribution:** cite Norman et al. (2024) for deepAFT. Cite this repository for the Python port, extensions, and benchmark protocol ([`CITATION.cff`](CITATION.cff)).
 
-| Study | Design | Primary output |
-|-------|--------|----------------|
-| Simulation A–D | 50 replications, controlled assumption violations | `simulation_chapter_summary.csv` |
-| TCGA adult glioma | 671 cases; IDH1, MGMT, TP53; GDC OS; 5-fold CV; Schoenfeld PH | `glioma_benchmark.csv`, `glioma_ph_test.json` |
-| BraTS 2024 GLI | PTG training splits; imaging features; PTG label prediction | `brats_cohort_counts.csv`, `brats_imaging_baseline*.csv` |
+| Track | Design | Outputs in `results/tables/` |
+|-------|--------|------------------------------|
+| **Simulation A–D** | 50 replications; scenarios stress covariate censoring, degenerate IPCW, group heteroscedasticity | `simulation_chapter_summary.csv` |
+| **TCGA adult glioma** | 671 cases; OS from NCI GDC; expression IDH1, MGMT, TP53 (Xena HiSeqV2); 5-fold CV; Schoenfeld PH on Cox model | `glioma_benchmark.csv`, `glioma_ph_test.json` |
+| **BraTS 2024 GLI (PTG)** | Adult Glioma Post-Treatment challenge training release; 1809 cases inventoried locally, 1621 with segmentations for feature extraction; PTG glioma-type and site prediction (5-fold CV); exploratory 2D U-Net Dice on held-out slices | `brats_cohort_counts.csv`, `brats_imaging_baseline*.csv`, `brats_unet2d_dice.csv`, `brats_validation_qc.csv` |
 
-Multimodal overall survival on the full 2024 PTG identifier set requires a published PTG↔TCGA crosswalk; linkage diagnostics are in `brats_tcga_linkage_report.json`. Narrative and model-choice discussion: `results/thesis_results.md` and `docs/dissertation_chapters.md`.
+Extended diagnostics: subregion volume descriptives, sklearn graph baseline on ET/NET/edema features, LGG↔GBM project holdout (`glioma_benchmark_external.csv`), PTG↔TCGA linkage report (`brats_tcga_linkage_report.json`). **Multimodal overall survival on the full 2024 PTG identifier set was not performed** in the reported tables because stored crosswalks did not overlap PTG feature IDs (see linkage JSON).
 
-## Release
+Narrative compilation (auto-generated): `python experiments/generate_thesis_results.py` → `results/thesis_results.md` (includes proportional-hazards assessment and deepAFT-versus-Cox discussion tied to frozen CSVs).
+
+---
+
+## TCGA data (survival and expression)
+
+- **Clinical and vital status:** [NCI Genomic Data Commons](https://portal.gdc.cancer.gov/) for projects TCGA-LGG and TCGA-GBM, subject to GDC data-use and publication policies.
+- **Gene expression:** public Xena / legacy archive alignments used only for the three-gene panel; OncoLnc-style tables may supplement demographics but **GDC** is the authority for vital status (2016 freeze not used for GBM OS in this work).
+
+No TCGA BAM/FASTQ or patient identifiers are committed to this repository.
+
+---
+
+## BraTS 2024 GLI data — terms, access, and attribution
+
+Imaging experiments use **BraTS 2024 Adult Glioma Post-Treatment (GLI)** data from the Brain Tumor Segmentation (BraTS) Challenge distributed on **Sage Bionetworks Synapse**. Access requires a Synapse account, **Request Access** on the data entity, and acceptance of the **post-challenge Terms and Conditions** on the BraTS 2024 project.
+
+### Synapse entities used in this work
+
+| Item | Synapse ID | Use |
+|------|------------|-----|
+| BraTS 2024 Challenge (project hub, wiki, terms) | [syn53708249](https://www.synapse.org/Synapse:syn53708249) | Registration, data-use agreement, citations |
+| GLI training data (folder / download root) | [syn64952546](https://www.synapse.org/Synapse:syn64952546) | Authorized retrieval target for local extract (`data/raw/brats2024_training/`, git-ignored) |
+| `BraTS2024-BraTS-GLI-TrainingData.zip` (version 2) | [syn60086071](https://www.synapse.org/Synapse:syn60086071) | Primary training archive referenced in `configs/data_paths.yaml` |
+
+**Task documentation:** [BraTS 2024 GLI wiki](https://www.synapse.org/Synapse:syn53708249/wiki/627500).
+
+### License and permitted use (summary)
+
+BraTS 2024 challenge data are made available under **Creative Commons Attribution–NonCommercial 4.0 International ([CC BY-NC 4.0](https://creativecommons.org/licenses/by-nc/4.0/))**. In accepting Synapse terms you agree that:
+
+1. **Non-commercial use:** data may be used for non-commercial research and education only, consistent with CC BY-NC 4.0.
+2. **Citation:** you must cite the **flagship BraTS 2024 publication(s)** and **task-specific manuscripts** listed on the Synapse Data Access / Downloads pages for the GLI task (see project wiki and discussion threads on syn53708249).
+3. **Attribution:** research outputs must acknowledge the BraTS challenge organizers. For this repository’s imaging chapter, use wording along the lines of:
+
+   > *Imaging data used in this work were obtained from the Brain Tumor Segmentation (BraTS) 2024 Challenge, Adult Glioma Post-Treatment (GLI) task, through Sage Bionetworks Synapse (project ID: syn53708249).*
+
+4. **No redistribution:** this **Git repository, PyPI/TestPyPI source distribution, and README do not include BraTS DICOM/NIfTI volumes, official segmentations, or participant-level challenge metadata.** Obtain data only through Synapse after accepting the live terms on the project page.
+5. **User information (Synapse):** by downloading BraTS data you consent that Sage Bionetworks may share download activity and account profile fields with challenge organizers for data-governance and usage evaluation, as stated in the Synapse data-use agreement and [Sage Bionetworks Privacy Policy](https://sagebionetworks.org/privacy-policy/).
+
+### What this repository publishes derived from BraTS
+
+Only **aggregate, non-imaging** artifacts generated on authorized local copies, for example cohort counts, cross-validated classifier metrics on hand-crafted imaging features, validation-split modality QC, and exploratory segmentation scores. Scripts: `experiments/04b_brats_imaging_features.py`, `07_brats_ptg_baseline.py`, `08_brats_validation_qc.py`, `09_brats_unet2d_baseline.py`, and related utilities under `experiments/`.
+
+---
+
+## Repository scope (not included in git)
+
+The following are **intentionally excluded** from version control (see [`.gitignore`](.gitignore)):
+
+- BraTS and TCGA **raw** downloads (`data/raw/`, `data/processed/`, `*.nii`, `*.nii.gz`)
+- Synapse credentials (`.synapseConfig`, `.env`)
+- Local dissertation working documents not required for the public package (`docs/dissertation_chapters.md`, `docs/PLAN.md`, `AGENTS.md`)
+- Third-party **publisher PDFs** (e.g. Norman et al. full text)
+
+---
+
+## Release (PyPI / TestPyPI)
 
 ```powershell
 python -m pip install build twine
@@ -61,8 +113,12 @@ Remove-Item -Recurse -Force dist -ErrorAction SilentlyContinue
 python -m build
 ```
 
-Upload instructions: [`docs/pypi_upload.md`](docs/pypi_upload.md).
+Upload steps: [`docs/pypi_upload.md`](docs/pypi_upload.md). The **long description** on PyPI is this README (including the BraTS data-use section above).
+
+---
 
 ## License
 
-MIT for this source code. TCGA and BraTS data are subject to [GDC](https://portal.gdc.cancer.gov/) and Synapse data-use agreements respectively.
+**Source code:** [MIT](LICENSE).
+
+**Data:** TCGA and BraTS are subject to their respective host agreements (GDC; Synapse CC BY-NC 4.0 for BraTS 2024 GLI). Compliance with those terms is the responsibility of anyone who downloads primary data or reproduces this work.

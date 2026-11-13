@@ -1,10 +1,8 @@
-# PyPI credentials (no secrets in git)
-
-Store API tokens only in environment variables or your local `~/.pypirc`. Full upload commands: **[pypi_upload.md](pypi_upload.md)**.
+# PyPI tokens (never commit)
 
 ```powershell
 $env:TWINE_USERNAME = "__token__"
-$env:TWINE_PASSWORD = "pypi-..."   # TestPyPI or PyPI token
+$env:TWINE_PASSWORD = "pypi-..."
 ```
 
-Never paste tokens into chat, commits, or `README.md`.
+See [pypi_upload.md](pypi_upload.md).

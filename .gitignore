@@ -12,14 +12,23 @@ venv/
 .venv/
 
 # Data (never commit raw clinical/imaging)
-data/raw/
-data/processed/
+data/
 *.nii
 *.nii.gz
 .env
 .env.*
 .synapseConfig
 **/synapseConfig
+
+# Publisher / local thesis copies (cite via DOI; do not redistribute in git)
+*.pdf
+
+# Local orchestration and dissertation prose (not for public GitHub / PyPI)
+AGENTS.md
+docs/dissertation_chapters.md
+docs/PLAN.md
+docs/thesis_submission_checklist.md
+PROJECT_TASKS.md
 
 # IDE
 .idea/
