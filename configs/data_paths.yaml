@@ -1,0 +1,33 @@
+# Dissertation data paths (local only — not committed with raw data)
+
+brats:
+  synapse_id: "syn64952546"  # root Data folder (full tree = many zips)
+  training_zip_id: "syn60086071"  # BraTS2024-BraTS-GLI-TrainingData.zip (v2 md5 below)
+  training_zip_md5_v2: "1d910b17d6cd32e38aa6296b8dfb7c77"
+  synapse_project: "syn53708249"
+  raw_dir: "data/raw/brats2024_training"
+  # Optional — public BraTS 2024 GLI may not ship this filename; use 02_build_tcga_crosswalk.py --mapping
+  mapping_file: "data/raw/brats2024_mapping.xlsx"
+
+tcga:
+  projects:
+    - "TCGA-LGG"
+    - "TCGA-GBM"
+  gdc_clinical_dir: "data/raw/gdc_clinical"
+  gdc_expression_dir: "data/raw/gdc_expression"
+
+oncolnc:
+  github_clinical: "https://github.com/OmnesRes/onco_lnc/tree/master/tcga_data"
+  genes_panel:
+    - "IDH1"
+    - "MGMT"
+    - "TP53"
+
+processed:
+  linked_cohort: "data/processed/linked_cohort.csv"
+  radiomics: "data/processed/radiomics_features.csv"
+  splits: "data/splits/5fold_stratified_splits.json"
+
+results:
+  tables: "results/tables"
+  figures: "results/figures"

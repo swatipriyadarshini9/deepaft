@@ -1,0 +1,120 @@
+MSc Dissertation reproducibility snapshot
+Generated (local): 2026-11-13 22:48 +05:30
+
+=== Python ===
+Python 3.14.4
+
+=== Key packages ===
+pandas 2.3.3
+sklearn 1.9.0
+
+=== Python 3.12 (torch / U-Net / PyRadiomics) ===
+Python 3.12.10
+torch 2.15.0+cpu
+
+=== Git (if repo) ===
+HEAD
+git.exe : fatal: ambiguous argument 'HEAD': unknown revision or path not in the working tree.
+At C:\Users\Swati\Downloads\MSc. Dissertation\scripts\capture_reproducibility.ps1:35 char:12
++ $gitHead = & git rev-parse HEAD 2>&1
++            ~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (fatal: ambiguou...e working tree.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+Use '--' to separate paths from revisions, like this:
+'git <command> [<revision>...] -- [<file>...]'
+git.exe : warning: could not open directory 'Application Data/': Permission denied
+At C:\Users\Swati\Downloads\MSc. Dissertation\scripts\capture_reproducibility.ps1:36 char:14
++ $gitStatus = & git status -sb 2>&1
++              ~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (warning: could ...rmission denied:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+warning: could not open directory 'Cookies/': Permission denied
+warning: could not open directory 'Documents/My Music/': Permission denied
+warning: could not open directory 'Documents/My Pictures/': Permission denied
+warning: could not open directory 'Documents/My Videos/': Permission denied
+warning: could not open directory 'Local Settings/': Permission denied
+warning: could not open directory 'My Documents/': Permission denied
+warning: could not open directory 'NetHood/': Permission denied
+warning: could not open directory 'PrintHood/': Permission denied
+warning: could not open directory 'Recent/': Permission denied
+warning: could not open directory 'SendTo/': Permission denied
+warning: could not open directory 'Start Menu/': Permission denied
+warning: could not open directory 'Templates/': Permission denied
+## No commits yet on master
+?? ../../.ai_completion/
+?? ../../.cache/
+?? ../../.cagent/
+?? ../../.chocolatey/
+?? ../../.codeium/
+?? ../../.codex/
+?? ../../.config/
+?? ../../.copilot/
+?? ../../.cursor/
+?? ../../.docker/
+?? ../../.emulator_console_auth_token
+?? ../../.gitconfig
+?? ../../.gradle/
+?? ../../.idlerc/
+?? ../../.ipython/
+?? ../../.js-repl/
+?? ../../.kube/
+?? ../../.lesshst
+?? ../../.node_repl_history
+?? ../../.ollama/
+?? ../../.ssh/
+?? ../../.streamlit/
+?? ../../.synapseCache/
+?? ../../.viminfo
+?? ../../.vscode-R/
+?? ../../.vscode-shared/
+?? ../../.vscode/
+?? ../../AppData/
+?? ../../CascadeProjects/
+?? ../../Contacts/
+?? ../
+?? ../../Favorites/
+?? ../../Links/
+?? ../../Miniconda3-latest-Linux-x86_64.sh
+?? ../../Music/
+?? ../../NTUSER.DAT
+?? ../../NTUSER.DAT{7163705f-07ef-11f1-8321-bdb1639697e7}.TxR.0.regtrans-ms
+?? ../../NTUSER.DAT{7163705f-07ef-11f1-8321-bdb1639697e7}.TxR.0.regtrans-ms.cnpf
+?? ../../NTUSER.DAT{7163705f-07ef-11f1-8321-bdb1639697e7}.TxR.1.regtrans-ms
+?? ../../NTUSER.DAT{7163705f-07ef-11f1-8321-bdb1639697e7}.TxR.1.regtrans-ms.cnpf
+?? ../../NTUSER.DAT{7163705f-07ef-11f1-8321-bdb1639697e7}.TxR.2.regtrans-ms
+?? ../../NTUSER.DAT{7163705f-07ef-11f1-8321-bdb1639697e7}.TxR.2.regtrans-ms.cnpf
+?? ../../NTUSER.DAT{7163705f-07ef-11f1-8321-bdb1639697e7}.TxR.blf
+?? ../../NTUSER.DAT{7163705f-07ef-11f1-8321-bdb1639697e7}.TxR.blf.cnpf
+?? ../../NTUSER.DAT{71637060-07ef-11f1-8321-bdb1639697e7}.TM.blf
+?? ../../NTUSER.DAT{71637060-07ef-11f1-8321-bdb1639697e7}.TM.blf.cnpf
+?? ../../NTUSER.DAT{71637060-07ef-11f1-8321-bdb1639697e7}.TMContainer00000000000000000001.regtrans-ms
+?? ../../NTUSER.DAT{71637060-07ef-11f1-8321-bdb1639697e7}.TMContainer00000000000000000001.regtrans-ms.cnpf
+?? ../../NTUSER.DAT{71637060-07ef-11f1-8321-bdb1639697e7}.TMContainer00000000000000000002.regtrans-ms
+?? ../../NTUSER.DAT{71637060-07ef-11f1-8321-bdb1639697e7}.TMContainer00000000000000000002.regtrans-ms.cnpf
+?? ../../OneDrive/
+?? ../../PyCharmMiscProject/
+?? "../../Saved Games/"
+?? ../../Searches/
+?? ../../Videos/
+?? ../../_netrc
+?? ../../flutter/
+?? ../../ntuser.dat.LOG1
+?? ../../ntuser.dat.LOG2
+?? ../../ntuser.ini
+?? ../../wget-log
+
+=== Core commands (thesis primary evidence) ===
+pip install -e ".[experiments,dev]"
+python -m pytest -q
+python experiments/run_simulation_chapter.py --replications 50  # or use checkpoints --resume
+python experiments/03_gdc_survival_and_expression.py
+python experiments/03b_fetch_tcga_expression.py
+python experiments/05_train_glioma_models.py --cohort data/processed/tcga_glioma_cohort.csv --output results/tables/glioma_benchmark.csv
+python experiments/04b_brats_imaging_features.py --require-seg
+python experiments/07_brats_ptg_baseline.py
+python experiments/07_brats_ptg_baseline.py --target site --output results/tables/brats_imaging_baseline_site.csv
+python experiments/08_brats_validation_qc.py
+.\\scripts\\run_torch_and_pyradiomics.ps1
+python experiments/generate_thesis_results.py

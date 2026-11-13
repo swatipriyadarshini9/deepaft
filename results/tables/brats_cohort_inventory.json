@@ -1,0 +1,10 @@
+{
+  "data_dir": "C:\\Users\\Swati\\Downloads\\MSc. Dissertation\\data\\raw\\brats2024_training",
+  "n_cases_total": 1809,
+  "n_cases_with_seg": 1621,
+  "by_immediate_parent": {
+    "training_data_additional": 271,
+    "training_data1_v2": 1350,
+    "validation_data": 188
+  }
+}

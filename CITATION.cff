@@ -1,0 +1,27 @@
+cff-version: 1.2.0
+title: "deepaft: Python reimplementation of Norman et al. (2024) deepAFT with censoring and residual-scale extensions"
+message: "If you use this software, please cite both this repository and Norman et al. (2024)."
+authors:
+  - family-names: "Priyadarshini"
+    given-names: "Swati"
+repository-code: "https://github.com/swatipriyadarshini9/deepaft"
+license: MIT
+preferred-citation:
+  type: article
+  title: "deepAFT: A nonlinear accelerated failure time model with artificial neural network"
+  authors:
+    - family-names: Norman
+      given-names: Patrick A.
+    - family-names: Li
+      given-names: Wanlu
+    - family-names: Jiang
+      given-names: Wenyu
+    - family-names: Chen
+      given-names: Bingshu E.
+  journal: "Statistics in Medicine"
+  volume: 43
+  issue: 19
+  start: 3689
+  end: 3701
+  year: 2024
+  doi: 10.1002/sim.10152

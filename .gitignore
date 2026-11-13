@@ -1,0 +1,30 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+dist/
+build/
+.pytest_cache/
+.coverage
+htmlcov/
+venv/
+.venv/
+
+# Data (never commit raw clinical/imaging)
+data/raw/
+data/processed/
+*.nii
+*.nii.gz
+.env
+.env.*
+.synapseConfig
+**/synapseConfig
+
+# IDE
+.idea/
+.vscode/
+
+# OS
+Thumbs.db
+.DS_Store

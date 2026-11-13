@@ -1,0 +1,2 @@
+n_train_slices,n_val_slices,epochs,dice_wt_mean,dice_wt_std,dice_et_mean,dice_et_std,note
+250,80,6,0.125,0.3307,0.35,0.477,2D center/single-slice U-Net exploratory baseline; not nnU-Net challenge tier

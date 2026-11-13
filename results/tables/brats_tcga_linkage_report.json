@@ -1,0 +1,6 @@
+{
+  "crosswalk_rows": 167,
+  "feature_rows": 1621,
+  "overlap_ids": 0,
+  "future_work": "Multimodal OS on full BraTS 2024 PTG cohort requires an official PTG\u2194TCGA crosswalk whose brats_id column matches BraTS-GLI-* in this extract."
+}

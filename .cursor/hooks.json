@@ -1,0 +1,22 @@
+{
+  "version": 1,
+  "hooks": {
+    "sessionStart": [
+      {
+        "command": "python .cursor/hooks/session_start.py"
+      }
+    ],
+    "afterFileEdit": [
+      {
+        "command": "python .cursor/hooks/after_deepaft_edit.py",
+        "matcher": "Write|StrReplace|EditNotebook"
+      }
+    ],
+    "subagentStart": [
+      {
+        "command": "python .cursor/hooks/subagent_context.py",
+        "matcher": "explore|generalPurpose|bugbot|security-review|ci-investigator"
+      }
+    ]
+  }
+}

@@ -1,0 +1,3 @@
+n_train,n_test,c_index,amse,train_project,test_project,model
+512,159,0.5196,5.6513,TCGA-LGG,TCGA-GBM,lognormal_aft
+159,512,0.4926,1.9538,TCGA-GBM,TCGA-LGG,lognormal_aft
