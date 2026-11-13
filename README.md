@@ -106,7 +106,7 @@ BraTS 2024 challenge data are made available under **Creative Commons Attributio
 2. **Citation:** cite the GLI task paper (arXiv:2405.18368) and the BraTS 2024 cluster design document (Zenodo 10.5281/zenodo.10978907), in addition to any updated citation list on the Synapse wiki.
 3. **Attribution:** research outputs must acknowledge the BraTS challenge organizers. For this repository’s imaging chapter, use wording along the lines of:
 
-   > *Imaging data used in this work were obtained from the Brain Tumor Segmentation (BraTS) 2024 Challenge, Adult Glioma Post-Treatment (GLI) task, through Sage Bionetworks Synapse (project ID: syn53708249).*
+   > *Imaging data were obtained from the BraTS 2024 Adult Glioma Post-Treatment (GLI) challenge via Sage Bionetworks Synapse (project syn53708249). We cite Correia de Verdier et al. (2024), arXiv:2405.18368, and Bakas et al. (2024), Zenodo 10.5281/zenodo.10978907, under CC BY-NC 4.0.*
 
 4. **No redistribution:** this **Git repository, PyPI/TestPyPI source distribution, and README do not include BraTS DICOM/NIfTI volumes, official segmentations, or participant-level challenge metadata.** Obtain data only through Synapse after accepting the live terms on the project page.
 5. **User information (Synapse):** by downloading BraTS data you consent that Sage Bionetworks may share download activity and account profile fields with challenge organizers for data-governance and usage evaluation, as stated in the Synapse data-use agreement and [Sage Bionetworks Privacy Policy](https://sagebionetworks.org/privacy-policy/).
