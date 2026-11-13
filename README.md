@@ -123,7 +123,7 @@ The following are **intentionally excluded** from version control (see [`.gitign
 
 - BraTS and TCGA **raw** downloads (`data/raw/`, `data/processed/`, `*.nii`, `*.nii.gz`)
 - Synapse credentials (`.synapseConfig`, `.env`)
-- Local dissertation working documents not required for the public package (`docs/dissertation_chapters.md`, `docs/PLAN.md`, `AGENTS.md`)
+- Local dissertation working documents not required for the public package (`docs/dissertation_chapters.md`, `docs/PLAN.md`)
 - Third-party **publisher PDFs** (e.g. Norman et al. full text)
 
 ---
