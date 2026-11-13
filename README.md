@@ -136,7 +136,12 @@ Remove-Item -Recurse -Force dist -ErrorAction SilentlyContinue
 python -m build
 ```
 
-Upload steps: [`docs/pypi_upload.md`](docs/pypi_upload.md). The **long description** on PyPI is this README (including the BraTS data-use section above).
+```powershell
+python -m twine upload --repository-url https://test.pypi.org/legacy/ dist\*
+# After verification: python -m twine upload dist\*
+```
+
+Use `TWINE_USERNAME=__token__` and a PyPI API token. The **long description** on PyPI is this README (including BraTS citations and data-use terms above).
 
 ---
 
