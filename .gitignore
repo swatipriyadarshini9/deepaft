@@ -23,6 +23,9 @@ data/
 # Publisher / local thesis copies (cite via DOI; do not redistribute in git)
 *.pdf
 
+# Thesis figures (local Word/PDF only; includes BraTS CC BY-NC slices)
+results/figures/
+
 # Local orchestration and dissertation prose (not for public GitHub / PyPI)
 AGENTS.md
 docs/dissertation_chapters.md
