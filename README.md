@@ -73,14 +73,37 @@ Imaging experiments use **BraTS 2024 Adult Glioma Post-Treatment (GLI)** data fr
 | GLI training data (folder / download root) | [syn64952546](https://www.synapse.org/Synapse:syn64952546) | Authorized retrieval target for local extract (`data/raw/brats2024_training/`, git-ignored) |
 | `BraTS2024-BraTS-GLI-TrainingData.zip` (version 2) | [syn60086071](https://www.synapse.org/Synapse:syn60086071) | Primary training archive referenced in `configs/data_paths.yaml` |
 
-**Task documentation:** [BraTS 2024 GLI wiki](https://www.synapse.org/Synapse:syn53708249/wiki/627500).
+**Task documentation:** [BraTS 2024 GLI wiki](https://www.synapse.org/Synapse:syn53708249/wiki/627500) (data description; Synapse discussion [thread 11134](https://www.synapse.org/Synapse:syn53708249/discussion/threadId=11134) links the GLI task paper).
+
+### Required literature citations (BraTS 2024)
+
+When you use BraTS 2024 GLI data or report imaging results derived from them, cite **at minimum** the GLI task manuscript named on Synapse for this task, and the BraTS 2024 cluster experimental-design document:
+
+1. **GLI task (post-treatment adult glioma MRI):** Correia de Verdier, M., Saluja, R., Gagnon, L., LaBella, D., et al. (2024). *The 2024 Brain Tumor Segmentation (BraTS) Challenge: Glioma Segmentation on Post-treatment MRI.* arXiv:2405.18368. [https://doi.org/10.48550/arXiv.2405.18368](https://doi.org/10.48550/arXiv.2405.18368) · [arXiv](https://arxiv.org/abs/2405.18368)
+
+2. **BraTS 2024 cluster (experimental design, all tasks):** Bakas, S., Baid, U., Rudie, J. D., Calabrese, E., et al. (2024). *BraTS 2024 Cluster of Challenges (BraTS + Beyond-BraTS).* Zenodo record 10978907. [https://doi.org/10.5281/zenodo.10978907](https://doi.org/10.5281/zenodo.10978907) · [Zenodo](https://zenodo.org/records/10978907)
+
+BibTeX (GLI task):
+
+```bibtex
+@article{brats2024gli,
+  title   = {The 2024 Brain Tumor Segmentation ({BraTS}) Challenge: Glioma Segmentation on Post-treatment {MRI}},
+  author  = {Correia de Verdier, Maria and Saluja, Rachit and others},
+  year    = {2024},
+  eprint  = {2405.18368},
+  archivePrefix = {arXiv},
+  primaryClass  = {cs.CV},
+  doi     = {10.48550/arXiv.2405.18368},
+  url     = {https://arxiv.org/abs/2405.18368}
+}
+```
 
 ### License and permitted use (summary)
 
 BraTS 2024 challenge data are made available under **Creative Commons Attribution–NonCommercial 4.0 International ([CC BY-NC 4.0](https://creativecommons.org/licenses/by-nc/4.0/))**. In accepting Synapse terms you agree that:
 
 1. **Non-commercial use:** data may be used for non-commercial research and education only, consistent with CC BY-NC 4.0.
-2. **Citation:** you must cite the **flagship BraTS 2024 publication(s)** and **task-specific manuscripts** listed on the Synapse Data Access / Downloads pages for the GLI task (see project wiki and discussion threads on syn53708249).
+2. **Citation:** cite the GLI task paper (arXiv:2405.18368) and the BraTS 2024 cluster design document (Zenodo 10.5281/zenodo.10978907), in addition to any updated citation list on the Synapse wiki.
 3. **Attribution:** research outputs must acknowledge the BraTS challenge organizers. For this repository’s imaging chapter, use wording along the lines of:
 
    > *Imaging data used in this work were obtained from the Brain Tumor Segmentation (BraTS) 2024 Challenge, Adult Glioma Post-Treatment (GLI) task, through Sage Bionetworks Synapse (project ID: syn53708249).*

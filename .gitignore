@@ -29,6 +29,10 @@ docs/dissertation_chapters.md
 docs/PLAN.md
 docs/thesis_submission_checklist.md
 PROJECT_TASKS.md
+results/thesis_results.md
+
+# Cursor agent config (local only)
+.cursor/
 
 # IDE
 .idea/

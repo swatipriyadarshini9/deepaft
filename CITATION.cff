@@ -25,3 +25,25 @@ preferred-citation:
   end: 3701
   year: 2024
   doi: 10.1002/sim.10152
+references:
+  - type: article
+    title: "The 2024 Brain Tumor Segmentation (BraTS) Challenge: Glioma Segmentation on Post-treatment MRI"
+    authors:
+      - family-names: "Correia de Verdier"
+        given-names: "Maria"
+      - family-names: "Saluja"
+        given-names: "Rachit"
+    year: 2024
+    doi: 10.48550/arXiv.2405.18368
+    url: "https://arxiv.org/abs/2405.18368"
+    notes: "Cite when using BraTS 2024 GLI imaging data (Synapse syn53708249)."
+  - type: generic
+    title: "BraTS 2024 Cluster of Challenges (BraTS + Beyond-BraTS)"
+    authors:
+      - family-names: "Bakas"
+        given-names: "Spyridon"
+      - family-names: "Baid"
+        given-names: "Ujjwal"
+    year: 2024
+    doi: 10.5281/zenodo.10978907
+    url: "https://zenodo.org/records/10978907"
